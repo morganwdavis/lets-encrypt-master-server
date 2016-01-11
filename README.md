@@ -119,4 +119,6 @@ If the script is running on a server other than the master, it will then issue a
 
 **This combination of solutions satisfies the primary goal and overcomes the challenges.**
 
+### Next Steps...
 
+Once you have your master server creating and renewing all the certificates, you simply need to deploy the updated certificates to your various machines via scp or rsync, etc. That exercise is left up to you.
