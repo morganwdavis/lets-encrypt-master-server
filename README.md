@@ -81,7 +81,7 @@ if (preg_match('%^/\.well-known/acme-challenge/(.*)$%', $_SERVER["REQUEST_URI"],
                 header('Content-type: application/jose+json');
                 $result = @file_get_contents($token_file) ?: json_encode(array('error' => 'Request resource ' . $token . ' not readable'));
                 echo($result);
-        } elseif ($_SERVER['SERVER_NAME'] != $redirect_server) {
+        } elseif ($_SERVER['HTTP_HOST'] != $redirect_server) {
                 header('Location: http://' . $redirect_server . '/.well-known/acme-challenge/' . $token);
         } else {
                 header('Content-type: application/jose+json');
@@ -118,6 +118,10 @@ It will attempt to resolve the challenge using a local version of the challenge 
 If the script is running on a server other than the master, it will then issue a redirect to www.example.com so the master Apache server can validate the challenge.  The circuit is complete.
 
 **This combination of solutions satisfies the primary goal and overcomes the challenges.**
+
+### Alternative Solution (no Apache required)
+
+You can use the PHP web server exclusively to respond to LE challenge requests if you prefer.  But if running a PHP script like this  isn't your bag, any other lightweight web server solution that gets the job done is fine. It doesn't have to be robust or full-featured.  It just has to answer to LE requests for challenge files.
 
 ### Next Steps...
 
