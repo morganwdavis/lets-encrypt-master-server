@@ -123,6 +123,8 @@ If the script is running on a server other than the master, it will then issue a
 
 You can use the PHP web server exclusively to respond to LE challenge requests if you prefer.  But if running a PHP script like this  isn't your bag, any other lightweight web server solution that gets the job done is fine. It doesn't have to be robust or full-featured.  It just has to answer to LE requests for challenge files.
 
+I've since adopted the PHP-based server (see above) as the master server solution. It runs on a server that does not have a full-fledged web server on it. I'm using the Apache redirect only on true web servers to send challenge verifications to the PHP master. The neat thing with this combination is that it's easy to move that role around if ever needed.
+
 ### Next Steps...
 
 Once you have your master server creating and renewing all the certificates, you simply need to deploy the updated certificates to your various machines via scp or rsync, etc. That exercise is left up to you.
