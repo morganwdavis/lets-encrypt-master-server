@@ -3,9 +3,10 @@
 
 ### Environment / Software
 * FreeBSD (but should work on any *nix OS)
-* Apache 2.4+
-* LE client (https://github.com/lukas2511/letsencrypt.sh bash script)
-* PHP 5.6+ with built-in web server enabled (http://php.net/manual/en/features.commandline.webserver.php)
+* LE client (https://github.com/lukas2511/dehydrated bash script)
+* Apache 2.4+ (optional) ...
+* ... or PHP with built-in web server enabled (http://php.net/manual/en/features.commandline.webserver.php) ...
+* ... or some other script with HTTP listening ability (Python?)
 
 ### Goal
 Set up Let's Encrypt (LE) management on a single server for creating and renewing certificates that may be deployed on many servers, including non-HTTP servers.
@@ -21,7 +22,7 @@ There's an easier way to do this with a single master LE management server and a
 
 First, set up the LE client on a dedicated web server and configure it to manage all the certificates you need on that server and any others in your organization.
 
-Next, configure Apache on your master server (e.g., www.example.com in these examples) *as well as any other web servers* to respond to validation requests. This requires mod_alias and mod_rewrite in Apache. Add this to your server's global configuration:
+Next, configure Apache on your master server (e.g., www.example.com in these examples) *as well as any other web-enabled servers* to respond to validation requests. If using Apache, this requires mod_alias and mod_rewrite. Add this to your server's global configuration:
 
 ```
 #
@@ -61,7 +62,7 @@ Alias "/.well-known/acme-challenge" "/path/to/your/acme-challenges"
 
 ### What about non-HTTP services?
 
-So you want certificates for non-web services, like SMTP, IMAP, MySQL, etc.  You also don't want to have to install Apache on those servers. Here's where some PHP magic comes to the rescue in a script called *maintenance.php*:
+So you want certificates for non-web services, like SMTP, IMAP, MySQL, etc.  You also don't want to have to install Apache on those servers. Here's where some PHP (or equivalent) magic comes to the rescue in a script called *maintenance.php*:
 
 ```
 <?php
