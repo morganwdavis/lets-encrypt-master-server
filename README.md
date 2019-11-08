@@ -36,6 +36,7 @@ Alias "/.well-known/acme-challenge" "/path/to/your/acme-challenges"
 #
 
 <Directory "/path/to/your/acme-challenges">
+        Require all granted
 
         # LE mime type for files from this directory
         Header set Content-Type "application/jose+json"
